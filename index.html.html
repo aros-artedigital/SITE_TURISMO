@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Viva Turismo — Roteiros personalizados, atendimento humanizado e o melhor da hospitalidade para transformar sua viagem em uma história para a vida toda.">
+<title>Viva Turismo — Viva experiências inesquecíveis pelo mundo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===========================
+   DESIGN TOKENS
+=========================== */
+:root{
+  /* Brand */
+  --c-orange:#FF5A1F;
+  --c-orange-dark:#E54A10;
+  --c-yellow:#FFC107;
+  --c-blue:#1E5BFF;
+  --c-purple:#8A2BE2;
+  /* Secondary */
+  --c-red:#E63027;
+  --c-magenta:#EC008C;
+  --c-green:#00B140;
+  /* Support */
+  --c-text:#1A1A1A;
+  --c-white:#FFFFFF;
+  --c-bg-soft:#F5F5F7;
+  --c-muted:#8E8E93;
+  --c-border:#E5E5EA;
+
+  /* Radius */
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px; --r-2xl:32px; --r-full:9999px;
+
+  /* Shadows */
+  --sh-xs:0 1px 2px rgba(0,0,0,0.04);
+  --sh-sm:0 4px 12px rgba(0,0,0,0.06);
+  --sh-md:0 8px 24px rgba(0,0,0,0.08);
+  --sh-lg:0 12px 32px rgba(0,0,0,0.12);
+  --sh-xl:0 20px 48px rgba(0,0,0,0.16);
+  --sh-color:0 12px 32px rgba(255,90,31,0.30);
+
+  /* Space */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px;
+
+  /* Fonts */
+  --f-display:'Bricolage Grotesque', system-ui, sans-serif;
+  --f-body:'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ===========================
+   RESET & BASE
+=========================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.6;
+  color:var(--c-text);
+  background:var(--c-white);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+ul{list-style:none}
+
+/* ===========================
+   TYPOGRAPHY
+=========================== */
+h1,h2,h3,h4{font-family:var(--f-display);letter-spacing:-0.02em;line-height:1.15;font-weight:700;color:var(--c-text)}
+h1{font-size:clamp(36px,5vw,56px);line-height:1.1}
+h2{font-size:clamp(28px,3.5vw,40px);line-height:1.2}
+h3{font-size:clamp(22px,2.2vw,28px);line-height:1.3}
+h4{font-size:clamp(18px,1.8vw,22px);line-height:1.35;font-weight:600}
+p{font-size:16px}
+.lead{font-size:clamp(16px,1.4vw,18px);line-height:1.6;color:#444}
+
+/* ===========================
+   LAYOUT
+=========================== */
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 var(--s-5)}
+section{padding:var(--s-8) 0}
+@media(min-width:768px){section{padding:var(--s-9) 0}}
+
+.section-head{text-align:center;margin-bottom:var(--s-7);max-width:720px;margin-left:auto;margin-right:auto}
+.section-head h2{margin-bottom:var(--s-3)}
+.section-head p{color:#555}
+.eyebrow{display:inline-block;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-orange);margin-bottom:var(--s-3)}
+
+/* ===========================
+   BUTTONS
+=========================== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);
+  padding:16px 32px;font-size:16px;font-weight:600;
+  border-radius:var(--r-md);min-height:48px;
+  transition:transform .25s ease, background .25s ease, box-shadow .25s ease, color .25s ease;
+  text-align:center;
+}
+.btn:focus-visible{outline:3px solid var(--c-yellow);outline-offset:3px}
+.btn-primary{background:var(--c-orange);color:var(--c-white)}
+.btn-primary:hover{background:var(--c-orange-dark);transform:translateY(-2px);box-shadow:var(--sh-color)}
+.btn-primary:active{transform:translateY(0)}
+.btn-secondary{background:transparent;color:var(--c-text);border:2px solid var(--c-text)}
+.btn-secondary:hover{background:var(--c-text);color:var(--c-white);transform:translateY(-2px)}
+.btn-tertiary{color:var(--c-blue);font-weight:600;padding:8px 0;min-height:44px}
+.btn-tertiary:hover{text-decoration:underline}
+.btn-block{width:100%}
+
+/* ===========================
+   HEADER
+=========================== */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--c-border);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:var(--s-5)}
+.logo{font-family:var(--f-display);font-weight:800;font-size:24px;letter-spacing:-0.02em;color:var(--c-text)}
+.logo span{color:var(--c-orange)}
+.nav{display:none}
+@media(min-width:1024px){
+  .nav{display:flex;gap:var(--s-6);align-items:center}
+  .nav a{font-size:15px;font-weight:500;color:var(--c-text);padding:8px 0;position:relative;transition:color .2s}
+  .nav a:hover{color:var(--c-orange)}
+  .nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--c-orange);transition:width .25s}
+  .nav a:hover::after{width:100%}
+}
+.header-cta{display:none}
+@media(min-width:768px){.header-cta{display:inline-flex}}
+.menu-toggle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:var(--r-md);
+  color:var(--c-text);
+}
+@media(min-width:1024px){.menu-toggle{display:none}}
+.menu-toggle:focus-visible{outline:3px solid var(--c-yellow);outline-offset:2px}
+.menu-toggle svg{width:24px;height:24px}
+
+.mobile-nav{display:none;padding:var(--s-4) 0;border-top:1px solid var(--c-border)}
+.mobile-nav.open{display:block}
+.mobile-nav ul{display:flex;flex-direction:column;gap:var(--s-2)}
+.mobile-nav a{display:block;padding:14px var(--s-3);font-weight:500;border-radius:var(--r-md)}
+.mobile-nav a:hover{background:var(--c-bg-soft);color:var(--c-orange)}
+.mobile-nav .btn{margin-top:var(--s-3);width:100%}
+
+/* ===========================
+   HERO
+=========================== */
+.hero{
+  position:relative;
+  padding:var(--s-9) 0 var(--s-10);
+  background:
+    radial-gradient(800px 400px at 90% -10%, rgba(255,193,7,0.18), transparent 60%),
+    radial-gradient(700px 500px at -10% 110%, rgba(30,91,255,0.12), transparent 60%),
+    linear-gradient(180deg, #FFF7F1 0%, #FFFFFF 100%);
+  overflow:hidden;
+}
+.hero-grid{display:grid;gap:var(--s-7);align-items:center}
+@media(min-width:1024px){.hero-grid{grid-template-columns:1.1fr .9fr;gap:var(--s-8)}}
+.hero h1{margin-bottom:var(--s-4)}
+.hero h1 em{font-style:normal;color:var(--c-orange);position:relative;display:inline-block}
+.hero h1 em::after{
+  content:"";position:absolute;left:0;right:0;bottom:6px;height:10px;
+  background:rgba(255,193,7,0.45);z-index:-1;border-radius:var(--r-sm);
+}
+.hero p.lead{margin-bottom:var(--s-5);max-width:540px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.hero-art{
+  position:relative;min-height:420px;border-radius:var(--r-2xl);
+  background:linear-gradient(135deg,#FF5A1F 0%, #8A2BE2 100%);
+  box-shadow:var(--sh-xl);
+  overflow:hidden;
+  display:flex;align-items:flex-end;justify-content:flex-start;
+  padding:var(--s-6);
+  color:var(--c-white);
+}
+.hero-art img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;
+}
+.hero-art::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.55) 100%);
+}
+.hero-art-badge{
+  position:relative;z-index:2;
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(8px);
+  padding:var(--s-4) var(--s-5);border-radius:var(--r-lg);
+  border:1px solid rgba(255,255,255,0.25);
+}
+.hero-art-badge strong{display:block;font-family:var(--f-display);font-size:28px;line-height:1}
+.hero-art-badge span{font-size:14px;opacity:0.95}
+
+/* ===========================
+   ABOUT
+=========================== */
+.about{background:var(--c-white)}
+.about-grid{display:grid;gap:var(--s-7)}
+@media(min-width:1024px){.about-grid{grid-template-columns:1.1fr .9fr;gap:var(--s-8);align-items:center}}
+.about-media{
+  position:relative;border-radius:var(--r-2xl);overflow:hidden;
+  aspect-ratio:4/5;box-shadow:var(--sh-lg);
+  background:#222;
+}
+.about-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.about-media:hover img{transform:scale(1.05)}
+.about-media-badge{
+  position:absolute;left:var(--s-4);bottom:var(--s-4);
+  background:rgba(255,255,255,0.95);
+  padding:var(--s-3) var(--s-4);border-radius:var(--r-md);
+  display:flex;align-items:center;gap:var(--s-3);
+  box-shadow:var(--sh-md);
+}
+.about-media-badge .badge-num{
+  font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--c-orange);line-height:1;
+}
+.about-media-badge .badge-txt{font-size:13px;color:var(--c-text);font-weight:500;line-height:1.3}
+.about p{margin-bottom:var(--s-4);color:#444}
+.features{display:grid;gap:var(--s-4);margin-top:var(--s-5)}
+@media(min-width:600px){.features{grid-template-columns:repeat(3,1fr)}}
+.feature{
+  background:var(--c-bg-soft);
+  border-radius:var(--r-lg);
+  padding:var(--s-5);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.feature:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.feature-icon{
+  width:48px;height:48px;border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:var(--s-3);
+  background:var(--c-orange);color:var(--c-white);
+}
+.feature:nth-child(2) .feature-icon{background:var(--c-blue)}
+.feature:nth-child(3) .feature-icon{background:var(--c-green)}
+.feature h4{margin-bottom:var(--s-2)}
+.feature p{font-size:14px;color:#555;margin:0}
+
+/* ===========================
+   DESTINOS
+=========================== */
+.destinos{background:var(--c-bg-soft)}
+.cards-grid{display:grid;gap:var(--s-5)}
+@media(min-width:600px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.cards-grid{grid-template-columns:repeat(3,1fr)}}
+.card{
+  background:var(--c-white);
+  border-radius:var(--r-xl);
+  overflow:hidden;
+  box-shadow:var(--sh-sm);
+  transition:transform .3s ease, box-shadow .3s ease;
+  display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
+.card-media{
+  position:relative;aspect-ratio:4/3;overflow:hidden;
+  display:flex;align-items:flex-end;padding:var(--s-4);
+  color:var(--c-white);background:#222;
+}
+.card-media img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;transition:transform .6s ease;
+}
+.card:hover .card-media img{transform:scale(1.06)}
+.card-media::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
+}
+.card-media .badge{z-index:2}
+.card-media[data-c="orange"]{background:linear-gradient(135deg,#FF5A1F,#FFC107)}
+.card-media[data-c="blue"]{background:linear-gradient(135deg,#1E5BFF,#8A2BE2)}
+.card-media[data-c="cyan"]{background:linear-gradient(135deg,#1E5BFF,#00B140)}
+.card-media[data-c="magenta"]{background:linear-gradient(135deg,#EC008C,#FF5A1F)}
+.card-media[data-c="green"]{background:linear-gradient(135deg,#00B140,#FFC107)}
+.card-media[data-c="purple"]{background:linear-gradient(135deg,#8A2BE2,#EC008C)}
+.badge{
+  position:absolute;top:var(--s-3);left:var(--s-3);
+  background:rgba(255,255,255,0.9);color:var(--c-text);
+  padding:6px 12px;border-radius:var(--r-full);
+  font-size:12px;font-weight:600;letter-spacing:0.04em;
+}
+.card-body{padding:var(--s-5);display:flex;flex-direction:column;flex:1}
+.card-body h3{margin-bottom:var(--s-2)}
+.card-body p{font-size:14px;color:#555;margin-bottom:var(--s-4);flex:1}
+.card-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--c-border);padding-top:var(--s-4)}
+.price small{display:block;font-size:12px;color:var(--c-muted);font-weight:500}
+.price strong{font-family:var(--f-display);font-size:24px;color:var(--c-text);font-weight:700}
+.cards-cta{text-align:center;margin-top:var(--s-7)}
+
+/* ===========================
+   PACOTES
+=========================== */
+.pacotes{background:var(--c-white)}
+.pacote-card .card-foot{flex-direction:column;align-items:stretch;gap:var(--s-3)}
+.pacote-card .card-foot .btn{width:100%}
+
+/* ===========================
+   SERVICOS
+=========================== */
+.servicos{background:linear-gradient(180deg,#FFFFFF 0%, #FFF7F1 100%)}
+.servicos-intro{text-align:center;max-width:640px;margin:0 auto var(--s-7);color:#555}
+.servicos-grid{display:grid;gap:var(--s-3)}
+@media(min-width:600px){.servicos-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.servicos-grid{grid-template-columns:repeat(3,1fr)}}
+.servico{
+  background:var(--c-white);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-md);
+  padding:var(--s-4) var(--s-5);
+  font-weight:500;display:flex;align-items:center;gap:var(--s-3);
+  transition:all .25s ease;
+}
+.servico:hover{border-color:var(--c-orange);transform:translateY(-2px);box-shadow:var(--sh-sm)}
+.servico-dot{width:8px;height:8px;border-radius:50%;background:var(--c-orange);flex-shrink:0}
+.servico:nth-child(3n) .servico-dot{background:var(--c-blue)}
+.servico:nth-child(3n+1) .servico-dot{background:var(--c-orange)}
+.servico:nth-child(3n+2) .servico-dot{background:var(--c-green)}
+
+/* ===========================
+   POR QUE
+=========================== */
+.porque{background:var(--c-text);color:var(--c-white)}
+.porque h2{color:var(--c-white)}
+.porque .section-head p{color:#bbb}
+.porque-grid{display:grid;gap:var(--s-5)}
+@media(min-width:600px){.porque-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.porque-grid{grid-template-columns:repeat(4,1fr)}}
+.porque-item{padding:var(--s-5);border-radius:var(--r-lg);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);transition:all .25s ease}
+.porque-item:hover{background:rgba(255,255,255,0.08);transform:translateY(-4px)}
+.porque-item h4{color:var(--c-white);margin-bottom:var(--s-2)}
+.porque-item:nth-child(1) h4{color:var(--c-yellow)}
+.porque-item:nth-child(2) h4{color:var(--c-orange)}
+.porque-item:nth-child(3) h4{color:#5B8BFF}
+.porque-item:nth-child(4) h4{color:#46E69E}
+.porque-item p{font-size:14px;color:#bbb}
+
+/* ===========================
+   DESCUBRA (SLIDER)
+=========================== */
+.descubra{
+  background:
+    radial-gradient(600px 300px at 10% 0%, rgba(255,193,7,0.18), transparent 60%),
+    radial-gradient(600px 300px at 90% 100%, rgba(236,0,140,0.12), transparent 60%),
+    linear-gradient(180deg,#FFF7F1 0%, #FFEEE3 100%);
+  overflow:hidden;
+}
+.descubra .section-head h2{
+  font-size:clamp(32px,5vw,56px);
+  background:linear-gradient(135deg,#FF5A1F 0%,#8A2BE2 50%,#1E5BFF 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-transform:uppercase;letter-spacing:-0.01em;
+}
+.descubra .section-head p{font-size:clamp(16px,1.6vw,20px);color:#444;font-weight:500}
+
+.slider{
+  position:relative;
+  width:100%;
+  height:clamp(280px,42vw,460px);
+  margin:var(--s-7) auto var(--s-6);
+  perspective:1400px;
+}
+.slider-track{
+  position:relative;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+}
+.slide{
+  position:absolute;
+  width:clamp(220px,42vw,520px);
+  aspect-ratio:16/10;
+  border-radius:var(--r-xl);
+  overflow:hidden;
+  box-shadow:var(--sh-lg);
+  transition:transform .8s cubic-bezier(.22,.61,.36,1), opacity .8s ease, filter .8s ease, z-index 0s linear .4s;
+  cursor:pointer;
+  background:#222;
+}
+.slide img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .8s ease;
+}
+.slide-caption{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:var(--s-5) var(--s-5) var(--s-4);
+  background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%);
+  color:var(--c-white);
+  opacity:0;transition:opacity .5s ease .2s;
+}
+.slide-caption h3{color:var(--c-white);font-size:clamp(20px,2.4vw,28px);margin-bottom:4px}
+.slide-caption span{font-size:14px;opacity:0.9}
+
+/* Positions: 5 slides total. Active = pos 0, sides = ±1, ±2 */
+.slide[data-pos="0"]{transform:translateX(0) translateZ(0) scale(1);opacity:1;z-index:5;filter:none;transition-delay:0s,0s,0s,0s}
+.slide[data-pos="0"] .slide-caption{opacity:1}
+.slide[data-pos="-1"]{transform:translateX(-58%) translateZ(-100px) scale(.85) rotate(-3deg);opacity:.88;z-index:4;filter:saturate(.85)}
+.slide[data-pos="1"]{transform:translateX(58%) translateZ(-100px) scale(.85) rotate(3deg);opacity:.88;z-index:4;filter:saturate(.85)}
+.slide[data-pos="-2"]{transform:translateX(-95%) translateZ(-220px) scale(.7) rotate(-6deg);opacity:.55;z-index:3;filter:saturate(.7) blur(.5px)}
+.slide[data-pos="2"]{transform:translateX(95%) translateZ(-220px) scale(.7) rotate(6deg);opacity:.55;z-index:3;filter:saturate(.7) blur(.5px)}
+.slide[data-pos="hidden"]{transform:translateX(0) scale(.5);opacity:0;z-index:1;pointer-events:none}
+
+@media(max-width:600px){
+  .slide[data-pos="-1"]{transform:translateX(-45%) scale(.78) rotate(-4deg)}
+  .slide[data-pos="1"]{transform:translateX(45%) scale(.78) rotate(4deg)}
+  .slide[data-pos="-2"],.slide[data-pos="2"]{opacity:0;pointer-events:none}
+}
+
+.slider-controls{
+  display:flex;align-items:center;justify-content:center;gap:var(--s-4);
+  margin-top:var(--s-5);
+}
+.slider-btn{
+  width:48px;height:48px;border-radius:var(--r-full);
+  background:var(--c-white);color:var(--c-text);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--sh-sm);
+  transition:transform .25s ease, background .25s ease, color .25s ease;
+}
+.slider-btn:hover{background:var(--c-orange);color:var(--c-white);transform:translateY(-2px)}
+.slider-btn:focus-visible{outline:3px solid var(--c-yellow);outline-offset:3px}
+.slider-btn svg{width:22px;height:22px}
+.slider-dots{display:flex;gap:var(--s-2)}
+.dot{
+  width:10px;height:10px;border-radius:var(--r-full);
+  background:rgba(0,0,0,0.15);transition:all .3s ease;cursor:pointer;
+  border:none;padding:0;
+}
+.dot.active{background:var(--c-orange);width:28px}
+.dot:focus-visible{outline:2px solid var(--c-orange);outline-offset:3px}
+.descubra-cta{text-align:center;margin-top:var(--s-5)}
+
+/* ===========================
+   GALERIA (DIAMOND)
+=========================== */
+.galeria{
+  background:linear-gradient(180deg,#FFEEE3 0%,#FFF7F1 100%);
+  position:relative;overflow:hidden;
+}
+.galeria .section-head h2{
+  font-size:clamp(28px,4.5vw,48px);
+  text-transform:uppercase;letter-spacing:-0.01em;
+  color:#0E3A5F;
+}
+.galeria .section-head p{font-size:clamp(15px,1.6vw,18px);color:#444}
+
+.galeria-wrap{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  margin:var(--s-7) auto 0;
+}
+.galeria-plane{
+  display:none;
+  position:absolute;
+  width:clamp(160px,14vw,220px);
+  color:#0E3A5F;
+  right:-20px;top:50%;
+  transform:translateY(-50%);
+  z-index:1;pointer-events:none;
+  animation:plane-float 6s ease-in-out infinite;
+}
+@media(min-width:1024px){.galeria-plane{display:block;right:0}}
+@media(min-width:1280px){.galeria-plane{right:-40px}}
+.galeria-plane svg{width:100%;height:auto}
+@keyframes plane-float{
+  0%,100%{transform:translateY(-50%) translateX(0)}
+  50%{transform:translateY(calc(-50% - 12px)) translateX(8px)}
+}
+
+/* Reserva o espaço visual rotacionado (sqrt(2) ≈ 1.414) */
+.diamond-area{
+  width:clamp(280px,48vw,520px);
+  aspect-ratio:1;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.diamond-grid{
+  width:70.71%;
+  height:70.71%;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(4,1fr);
+  gap:6px;
+  transform:rotate(45deg);
+}
+.diamond{
+  position:relative;
+  overflow:hidden;
+  border-radius:6px;
+  cursor:pointer;
+  background:#222;
+  transition:transform .35s ease, box-shadow .35s ease, z-index 0s linear .2s;
+  border:none;padding:0;
+}
+.diamond img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transform:rotate(-45deg) scale(1.45);
+  transition:transform .5s ease, filter .35s ease;
+}
+.diamond::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg, rgba(255,90,31,0) 0%, rgba(255,90,31,0.55) 100%);
+  opacity:0;transition:opacity .35s ease;
+}
+.diamond:hover,.diamond:focus-visible{
+  transform:scale(1.08);z-index:5;
+  box-shadow:0 16px 36px rgba(0,0,0,0.22);
+  transition-delay:0s;
+  outline:none;
+}
+.diamond:hover img,.diamond:focus-visible img{transform:rotate(-45deg) scale(1.6)}
+.diamond:hover::after,.diamond:focus-visible::after{opacity:1}
+.diamond:focus-visible{box-shadow:0 0 0 4px var(--c-yellow), 0 16px 36px rgba(0,0,0,0.22)}
+
+@media(max-width:600px){
+  .diamond-area{width:min(86vw,380px)}
+  .diamond-grid{gap:4px}
+  .diamond{border-radius:4px}
+  .galeria-wrap{gap:var(--s-4);margin-top:var(--s-5)}
+}
+
+.galeria-cta{text-align:center;margin-top:var(--s-9)}
+
+/* Modal */
+.modal{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(10,10,15,0.85);
+  backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+  padding:var(--s-5);
+  opacity:0;transition:opacity .3s ease;
+}
+.modal.open{display:flex;opacity:1}
+.modal-content{
+  position:relative;
+  max-width:920px;width:100%;
+  background:var(--c-white);
+  border-radius:var(--r-xl);
+  overflow:hidden;
+  box-shadow:var(--sh-xl);
+  transform:scale(.96);transition:transform .35s cubic-bezier(.22,.61,.36,1);
+}
+.modal.open .modal-content{transform:scale(1)}
+.modal-img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:#222}
+.modal-body{padding:var(--s-5) var(--s-6) var(--s-6)}
+.modal-body h3{margin-bottom:var(--s-2)}
+.modal-body p{color:#555}
+.modal-close{
+  position:absolute;top:var(--s-3);right:var(--s-3);z-index:2;
+  width:44px;height:44px;border-radius:var(--r-full);
+  background:rgba(255,255,255,0.95);color:var(--c-text);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--sh-md);transition:all .25s ease;
+}
+.modal-close:hover{background:var(--c-orange);color:var(--c-white);transform:rotate(90deg)}
+.modal-close:focus-visible{outline:3px solid var(--c-yellow);outline-offset:3px}
+.modal-close svg{width:22px;height:22px}
+body.modal-open{overflow:hidden}
+
+/* ===========================
+   DEPOIMENTOS
+=========================== */
+.depoimentos{background:var(--c-bg-soft)}
+.depo-grid{display:grid;gap:var(--s-5)}
+@media(min-width:768px){.depo-grid{grid-template-columns:repeat(3,1fr)}}
+.depo{
+  background:var(--c-white);
+  border-radius:var(--r-xl);
+  padding:var(--s-6);
+  box-shadow:var(--sh-sm);
+  position:relative;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.depo:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.depo::before{
+  content:"\201C";font-family:var(--f-display);
+  font-size:96px;line-height:0.8;color:var(--c-orange);
+  position:absolute;top:16px;left:20px;opacity:0.18;
+}
+.depo blockquote{font-size:16px;line-height:1.6;margin-bottom:var(--s-4);color:#333;position:relative}
+.depo footer{font-size:14px;color:#555;display:flex;align-items:center;gap:var(--s-3)}
+.depo footer img{width:48px;height:48px;border-radius:var(--r-full);object-fit:cover;flex-shrink:0;border:2px solid var(--c-white);box-shadow:var(--sh-sm)}
+.depo footer .depo-info{display:flex;flex-direction:column;line-height:1.4}
+.depo footer strong{color:var(--c-text);font-size:15px}
+
+/* ===========================
+   BLOG
+=========================== */
+.blog{background:var(--c-white)}
+.posts{display:grid;gap:var(--s-5);margin-bottom:var(--s-6)}
+@media(min-width:600px){.posts{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.posts{grid-template-columns:repeat(4,1fr)}}
+.post{
+  display:flex;flex-direction:column;
+  background:var(--c-white);
+  border-radius:var(--r-xl);overflow:hidden;
+  box-shadow:var(--sh-sm);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.post:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
+.post-thumb{
+  position:relative;aspect-ratio:16/10;overflow:hidden;background:#222;
+}
+.post-thumb img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s ease;
+}
+.post:hover .post-thumb img{transform:scale(1.08)}
+.post-tag{
+  position:absolute;top:var(--s-3);left:var(--s-3);z-index:2;
+  background:rgba(255,255,255,0.95);color:var(--c-text);
+  padding:4px 10px;border-radius:var(--r-full);
+  font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;
+}
+.post:nth-child(1) .post-tag{background:var(--c-orange);color:var(--c-white)}
+.post:nth-child(2) .post-tag{background:var(--c-blue);color:var(--c-white)}
+.post:nth-child(3) .post-tag{background:var(--c-magenta);color:var(--c-white)}
+.post:nth-child(4) .post-tag{background:var(--c-green);color:var(--c-white)}
+.post-body{padding:var(--s-4) var(--s-5) var(--s-5);flex:1;display:flex;flex-direction:column}
+.post h4{font-size:16px;line-height:1.4;margin:0 0 var(--s-2);color:var(--c-text)}
+.post-meta{font-size:12px;color:var(--c-muted);margin-top:auto}
+.blog-cta{text-align:center}
+
+/* ===========================
+   NEWSLETTER
+=========================== */
+.newsletter{background:var(--c-yellow);color:var(--c-text)}
+.news-inner{max-width:720px;margin:0 auto;text-align:center}
+.news-inner h2{margin-bottom:var(--s-3)}
+.news-inner p{margin-bottom:var(--s-6);font-size:18px}
+.news-form{
+  display:grid;gap:var(--s-3);max-width:640px;margin:0 auto;
+  background:var(--c-white);padding:var(--s-5);border-radius:var(--r-xl);
+  box-shadow:var(--sh-lg);text-align:left;
+}
+@media(min-width:600px){.news-form{grid-template-columns:1fr 1fr;padding:var(--s-6)}}
+.news-form .field-full{grid-column:1/-1}
+.news-form label{display:block;font-size:13px;font-weight:600;color:var(--c-text);margin-bottom:6px;letter-spacing:0.02em}
+.input,.select,.textarea{
+  width:100%;height:52px;padding:14px 18px;
+  border-radius:var(--r-md);border:1px solid var(--c-border);
+  background:var(--c-white);font-size:16px;font-family:inherit;color:var(--c-text);
+  transition:border .2s, box-shadow .2s;
+}
+.textarea{height:auto;min-height:96px;resize:vertical;padding:14px 18px;line-height:1.5}
+.select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%238E8E93' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 18px center;padding-right:44px}
+.input::placeholder,.textarea::placeholder{color:var(--c-muted)}
+.input:focus,.select:focus,.textarea:focus{outline:none;border:2px solid var(--c-orange);box-shadow:0 0 0 4px rgba(255,90,31,0.15)}
+.news-form .btn{height:56px;background:var(--c-green);box-shadow:0 8px 24px rgba(0,177,64,0.30)}
+.news-form .btn:hover{background:#009638;box-shadow:0 12px 28px rgba(0,177,64,0.40)}
+.news-form .btn svg{width:22px;height:22px}
+.form-note{grid-column:1/-1;font-size:13px;color:var(--c-muted);text-align:center;margin-top:var(--s-2)}
+
+/* ===========================
+   FINAL CTA
+=========================== */
+.cta-final{
+  background:
+    radial-gradient(600px 300px at 10% 10%, rgba(255,193,7,0.25), transparent 60%),
+    radial-gradient(700px 400px at 100% 110%, rgba(236,0,140,0.18), transparent 60%),
+    linear-gradient(135deg,#FF5A1F 0%, #E63027 100%);
+  color:var(--c-white);text-align:center;
+}
+.cta-final h2{color:var(--c-white);margin-bottom:var(--s-3)}
+.cta-final p{max-width:640px;margin:0 auto var(--s-5);font-size:18px;opacity:0.95}
+.cta-final-actions{display:flex;flex-wrap:wrap;gap:var(--s-3);justify-content:center}
+.cta-final .btn-primary{background:var(--c-white);color:var(--c-orange)}
+.cta-final .btn-primary:hover{background:var(--c-yellow);color:var(--c-text)}
+.cta-final .btn-secondary{border-color:var(--c-white);color:var(--c-white)}
+.cta-final .btn-secondary:hover{background:var(--c-white);color:var(--c-text)}
+
+/* ===========================
+   FOOTER
+=========================== */
+.footer{background:var(--c-text);color:#bbb;padding:var(--s-9) 0 var(--s-5)}
+.footer-grid{display:grid;gap:var(--s-7)}
+@media(min-width:768px){.footer-grid{grid-template-columns:2fr 1fr 1.2fr 1fr}}
+.footer h4{color:var(--c-white);font-family:var(--f-body);font-size:14px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:var(--s-4);font-weight:600}
+.footer .logo{color:var(--c-white);display:inline-block;margin-bottom:var(--s-3)}
+.footer p{font-size:14px;line-height:1.6;color:#bbb}
+.footer ul{display:flex;flex-direction:column;gap:var(--s-2)}
+.footer ul a{font-size:14px;color:#bbb;padding:4px 0;display:inline-block;transition:color .2s}
+.footer ul a:hover{color:var(--c-orange)}
+.footer-contact li{font-size:14px;line-height:1.7}
+.social{display:flex;gap:var(--s-3);margin-top:var(--s-3)}
+.social a{
+  width:40px;height:40px;border-radius:var(--r-full);
+  background:rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--c-white);font-weight:600;font-size:13px;
+  transition:all .25s ease;
+}
+.social a:hover{background:var(--c-orange);transform:translateY(-2px)}
+.footer-bottom{
+  margin-top:var(--s-8);padding-top:var(--s-5);
+  border-top:1px solid rgba(255,255,255,0.1);
+  font-size:13px;color:#888;text-align:center;line-height:1.8;
+}
+.footer-bottom a:hover{color:var(--c-orange)}
+
+/* ===========================
+   FLOAT WHATSAPP
+=========================== */
+.fab{
+  position:fixed;bottom:24px;right:24px;z-index:90;
+  width:56px;height:56px;border-radius:var(--r-full);
+  background:var(--c-green);color:var(--c-white);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(0,177,64,0.35);
+  transition:transform .25s ease;
+}
+.fab:hover{transform:scale(1.08)}
+.fab:focus-visible{outline:3px solid var(--c-yellow);outline-offset:3px}
+.fab svg{width:28px;height:28px}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
+  .fade-in{opacity:1;transform:none}
+}
+
+/* Skip link */
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--c-text);color:#fff;padding:12px 18px;border-radius:0 0 var(--r-md) 0;z-index:200}
+.skip-link:focus{left:0}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+<!-- ============ HEADER ============ -->
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a href="#" class="logo" aria-label="Viva Turismo - Página Inicial">Viva<span>Turismo</span></a>
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#inicio">Início</a>
+      <a href="#sobre">Sobre Nós</a>
+      <a href="#destinos">Destinos</a>
+      <a href="#pacotes">Pacotes</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#blog">Blog</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a href="#contato" class="btn btn-primary header-cta">Fale com um Consultor</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="mobileNav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="container">
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre Nós</a></li>
+        <li><a href="#destinos">Destinos</a></li>
+        <li><a href="#pacotes">Pacotes</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <a href="#contato" class="btn btn-primary">Fale com um Consultor</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="fade-in">
+        <span class="eyebrow">Agência de Turismo</span>
+        <h1 id="hero-title">Viva experiências <em>inesquecíveis</em> pelo mundo</h1>
+        <p class="lead">Roteiros personalizados, atendimento humanizado e o melhor da hospitalidade para transformar sua viagem em uma história para a vida toda.</p>
+        <div class="hero-ctas">
+          <a href="#pacotes" class="btn btn-primary">Monte sua Viagem</a>
+          <a href="#destinos" class="btn btn-secondary">Ver Destinos</a>
+        </div>
+      </div>
+      <div class="hero-art fade-in">
+        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&auto=format&fit=crop&q=75" alt="Viajante de pé observando vista panorâmica de um destino paradisíaco" loading="eager" decoding="async">
+        <div class="hero-art-badge">
+          <strong>+1.000</strong>
+          <span>viajantes felizes pelo mundo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOBRE ============ -->
+<section class="about" id="sobre" aria-labelledby="sobre-title">
+  <div class="container">
+    <div class="about-grid">
+      <div class="fade-in">
+        <span class="eyebrow">Quem somos</span>
+        <h2 id="sobre-title">Quem é a Viva Turismo</h2>
+        <p>A Viva Turismo nasceu da paixão por descobrir novos lugares e da vontade de proporcionar experiências autênticas a quem viaja com a gente. Há anos no mercado, somos uma agência especializada em criar roteiros sob medida — nacionais e internacionais — combinando conforto, segurança e o tipo de detalhe que só quem entende do assunto sabe oferecer.</p>
+        <p>Trabalhamos com os principais operadores e companhias do mercado, garantindo as melhores condições para você viver sua viagem do jeito que sempre sonhou. Mais do que vender passagens, criamos memórias.</p>
+      </div>
+      <div class="about-media fade-in">
+        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=900&auto=format&fit=crop&q=75" alt="Vista panorâmica de paisagem montanhosa com lago" loading="lazy" decoding="async">
+        <div class="about-media-badge">
+          <span class="badge-num">+15</span>
+          <span class="badge-txt">anos<br>no mercado</span>
+        </div>
+      </div>
+    </div>
+    <div class="features fade-in" role="list">
+      <div class="feature" role="listitem">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h4>Atendimento personalizado</h4>
+        <p>Cada viagem é planejada de acordo com o seu perfil, tempo e orçamento.</p>
+      </div>
+      <div class="feature" role="listitem">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h4>Parceiros confiáveis</h4>
+        <p>Trabalhamos com operadoras renomadas e hotéis selecionados.</p>
+      </div>
+      <div class="feature" role="listitem">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h4>Suporte durante a viagem</h4>
+        <p>Estamos disponíveis antes, durante e depois do seu embarque.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESTINOS ============ -->
+<section class="destinos" id="destinos" aria-labelledby="destinos-title">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Destinos</span>
+      <h2 id="destinos-title">Destinos que inspiram</h2>
+      <p>Conheça alguns dos lugares mais procurados pelos nossos viajantes.</p>
+    </div>
+    <div class="cards-grid" role="list">
+      <article class="card fade-in" role="listitem">
+        <div class="card-media" data-c="orange">
+          <img src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&auto=format&fit=crop&q=70" alt="Praia de águas cristalinas no Nordeste brasileiro com coqueiros" loading="lazy" decoding="async">
+          <span class="badge">Praias</span>
+        </div>
+        <div class="card-body">
+          <h3>Nordeste Brasileiro</h3>
+          <p>Praias paradisíacas, cultura vibrante e a melhor gastronomia litorânea. Maragogi, Porto de Galinhas, Jericoacoara e muito mais.</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 2.190</strong></div>
+            <a href="#contato" class="btn-tertiary">Ver pacote →</a>
+          </div>
+        </div>
+      </article>
+      <article class="card fade-in" role="listitem">
+        <div class="card-media" data-c="blue">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&auto=format&fit=crop&q=70" alt="Torre Eiffel iluminada em Paris ao entardecer" loading="lazy" decoding="async">
+          <span class="badge">Cultura</span>
+        </div>
+        <div class="card-body">
+          <h3>Europa Clássica</h3>
+          <p>Paris, Roma, Lisboa e Barcelona — cidades históricas, gastronomia premiada e roteiros culturais imperdíveis.</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 9.450</strong></div>
+            <a href="#contato" class="btn-tertiary">Ver pacote →</a>
+          </div>
+        </div>
+      </article>
+      <article class="card fade-in" role="listitem">
+        <div class="card-media" data-c="cyan">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=70" alt="Praia caribenha com águas turquesa e areia branca" loading="lazy" decoding="async">
+          <span class="badge">All-inclusive</span>
+        </div>
+        <div class="card-body">
+          <h3>Caribe</h3>
+          <p>Águas cristalinas, resorts all-inclusive e o cenário perfeito para descansar. Cancún, Punta Cana e Aruba.</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 5.890</strong></div>
+            <a href="#contato" class="btn-tertiary">Ver pacote →</a>
+          </div>
+        </div>
+      </article>
+      <article class="card fade-in" role="listitem">
+        <div class="card-media" data-c="magenta">
+          <img src="https://images.unsplash.com/photo-1597466765990-64ad1c35dafc?w=800&auto=format&fit=crop&q=70" alt="Castelo da Disney em Orlando iluminado" loading="lazy" decoding="async">
+          <span class="badge">Família</span>
+        </div>
+        <div class="card-body">
+          <h3>Disney & Orlando</h3>
+          <p>Magia para toda a família, com pacotes que incluem ingressos, hotéis e traslados.</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 7.200</strong></div>
+            <a href="#contato" class="btn-tertiary">Ver pacote →</a>
+          </div>
+        </div>
+      </article>
+      <article class="card fade-in" role="listitem">
+        <div class="card-media" data-c="green">
+          <img src="https://images.unsplash.com/photo-1531065208531-4036c0dba3ca?w=800&auto=format&fit=crop&q=70" alt="Paisagem da Patagônia com montanhas nevadas e lago" loading="lazy" decoding="async">
+          <span class="badge">Aventura</span>
+        </div>
+        <div class="card-body">
+          <h3>Argentina e Chile</h3>
+          <p>Bariloche, Buenos Aires, Santiago e Atacama — natureza, vinhos e aventura na América do Sul.</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 4.390</strong></div>
+            <a href="#contato" class="btn-tertiary">Ver pacote →</a>
+          </div>
+        </div>
+      </article>
+      <article class="card fade-in" role="listitem">
+        <div class="card-media" data-c="purple">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&auto=format&fit=crop&q=70" alt="Skyline de Dubai com arranha-céus iluminados" loading="lazy" decoding="async">
+          <span class="badge">Luxo</span>
+        </div>
+        <div class="card-body">
+          <h3>Dubai e Emirados Árabes</h3>
+          <p>Luxo, arquitetura futurista e experiências exclusivas no deserto.</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 8.750</strong></div>
+            <a href="#contato" class="btn-tertiary">Ver pacote →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="cards-cta">
+      <a href="#contato" class="btn btn-secondary">Ver todos os destinos</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PACOTES ============ -->
+<section class="pacotes" id="pacotes" aria-labelledby="pacotes-title">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Ofertas da Semana</span>
+      <h2 id="pacotes-title">Pacotes Especiais</h2>
+      <p>Selecionamos as melhores ofertas da semana para você embarcar com economia.</p>
+    </div>
+    <div class="cards-grid" role="list">
+      <article class="card pacote-card fade-in" role="listitem">
+        <div class="card-media" data-c="orange">
+          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&auto=format&fit=crop&q=70" alt="Praia paradisíaca de Maragogi com coqueiros" loading="lazy" decoding="async">
+          <span class="badge">5 dias</span>
+        </div>
+        <div class="card-body">
+          <h3>Maragogi – 5 dias</h3>
+          <p>Aéreo + hospedagem + traslado</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 2.190</strong><small>por pessoa</small></div>
+            <a href="#contato" class="btn btn-primary btn-block">Quero esse pacote</a>
+          </div>
+        </div>
+      </article>
+      <article class="card pacote-card fade-in" role="listitem">
+        <div class="card-media" data-c="cyan">
+          <img src="https://images.unsplash.com/photo-1552074284-5e88ef1aef18?w=800&auto=format&fit=crop&q=70" alt="Resort em Cancún com piscina à beira-mar" loading="lazy" decoding="async">
+          <span class="badge">7 noites</span>
+        </div>
+        <div class="card-body">
+          <h3>Cancún All-Inclusive – 7 noites</h3>
+          <p>Resort 5★ com tudo incluso</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 5.890</strong><small>por pessoa</small></div>
+            <a href="#contato" class="btn btn-primary btn-block">Quero esse pacote</a>
+          </div>
+        </div>
+      </article>
+      <article class="card pacote-card fade-in" role="listitem">
+        <div class="card-media" data-c="blue">
+          <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&auto=format&fit=crop&q=70" alt="Coliseu de Roma ao entardecer" loading="lazy" decoding="async">
+          <span class="badge">10 dias</span>
+        </div>
+        <div class="card-body">
+          <h3>Europa – 10 dias</h3>
+          <p>Paris, Roma e Lisboa</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 9.450</strong><small>por pessoa</small></div>
+            <a href="#contato" class="btn btn-primary btn-block">Quero esse pacote</a>
+          </div>
+        </div>
+      </article>
+      <article class="card pacote-card fade-in" role="listitem">
+        <div class="card-media" data-c="magenta">
+          <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=70" alt="Família curtindo parque temático em Orlando" loading="lazy" decoding="async">
+          <span class="badge">8 dias</span>
+        </div>
+        <div class="card-body">
+          <h3>Disney em Família – 8 dias</h3>
+          <p>Hotel + ingressos dos parques</p>
+          <div class="card-foot">
+            <div class="price"><small>A partir de</small><strong>R$ 7.200</strong><small>por pessoa</small></div>
+            <a href="#contato" class="btn btn-primary btn-block">Quero esse pacote</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICOS ============ -->
+<section class="servicos" id="servicos" aria-labelledby="servicos-title">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Serviços</span>
+      <h2 id="servicos-title">O que oferecemos</h2>
+    </div>
+    <p class="servicos-intro fade-in">Cuidamos de cada detalhe da sua viagem para que você se preocupe apenas em aproveitar.</p>
+    <ul class="servicos-grid fade-in">
+      <li class="servico"><span class="servico-dot" aria-hidden="true"></span>Passagens aéreas nacionais e internacionais</li>
+      <li class="servico"><span class="servico-dot" aria-hidden="true"></span>Hospedagem em hotéis, resorts e pousadas</li>
+      <li class="servico"><span class="servico-dot" aria-hidden="true"></span>Cruzeiros marítimos e fluviais</li>
+      <li class="servico"><span class="servico-dot" aria-hidden="true"></span>Pacotes de lua de mel e viagens em grupo</li>
+      <li class="servico"><span class="servico-dot" aria-hidden="true"></span>Seguro viagem e assistência 24h</li>
+      <li class="servico"><span class="servico-dot" aria-hidden="true"></span>Aluguel de carros e traslados</li>
+      <li class="servico"><span class="servico-dot" aria-hidden="true"></span>Ingressos para parques e atrações</li>
+      <li class="servico"><span class="servico-dot" aria-hidden="true"></span>Câmbio e cartão pré-pago internacional</li>
+      <li class="servico"><span class="servico-dot" aria-hidden="true"></span>Vistos e assessoria de documentação</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ POR QUE ============ -->
+<section class="porque" aria-labelledby="porque-title">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow" style="color:var(--c-yellow)">Diferenciais</span>
+      <h2 id="porque-title">Por que escolher a Viva Turismo</h2>
+    </div>
+    <div class="porque-grid">
+      <div class="porque-item fade-in">
+        <h4>+1.000 viajantes atendidos</h4>
+        <p>Experiência comprovada por quem já viajou com a gente.</p>
+      </div>
+      <div class="porque-item fade-in">
+        <h4>Roteiros sob medida</h4>
+        <p>Cada viagem é única — e a sua merece ser planejada assim.</p>
+      </div>
+      <div class="porque-item fade-in">
+        <h4>As melhores condições</h4>
+        <p>Parcele em até 12x e aproveite ofertas exclusivas.</p>
+      </div>
+      <div class="porque-item fade-in">
+        <h4>Atendimento 7 dias por semana</h4>
+        <p>Estamos com você do primeiro contato ao retorno para casa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESCUBRA (SLIDER) ============ -->
+<section class="descubra" aria-labelledby="descubra-title">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Inspiração</span>
+      <h2 id="descubra-title">Descubra o mundo com a Viva</h2>
+      <p>Viva experiências únicas e diferentes nos destinos mais procurados.</p>
+    </div>
+
+    <div class="slider" id="slider" role="region" aria-roledescription="carrossel" aria-label="Destinos em destaque">
+      <div class="slider-track">
+        <article class="slide" aria-roledescription="slide" aria-label="1 de 5: Nordeste Brasileiro">
+          <img src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=1000&auto=format&fit=crop&q=75" alt="Praia de águas cristalinas no Nordeste brasileiro" loading="lazy" decoding="async">
+          <div class="slide-caption"><h3>Nordeste Brasileiro</h3><span>Maragogi · Porto de Galinhas · Jericoacoara</span></div>
+        </article>
+        <article class="slide" aria-roledescription="slide" aria-label="2 de 5: Europa Clássica">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1000&auto=format&fit=crop&q=75" alt="Torre Eiffel iluminada em Paris ao entardecer" loading="lazy" decoding="async">
+          <div class="slide-caption"><h3>Europa Clássica</h3><span>Paris · Roma · Lisboa · Barcelona</span></div>
+        </article>
+        <article class="slide" aria-roledescription="slide" aria-label="3 de 5: Caribe">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1000&auto=format&fit=crop&q=75" alt="Praia caribenha com águas turquesa e areia branca" loading="lazy" decoding="async">
+          <div class="slide-caption"><h3>Caribe</h3><span>Cancún · Punta Cana · Aruba</span></div>
+        </article>
+        <article class="slide" aria-roledescription="slide" aria-label="4 de 5: Disney e Orlando">
+          <img src="https://images.unsplash.com/photo-1597466765990-64ad1c35dafc?w=1000&auto=format&fit=crop&q=75" alt="Castelo da Disney em Orlando iluminado" loading="lazy" decoding="async">
+          <div class="slide-caption"><h3>Disney & Orlando</h3><span>Magia para toda a família</span></div>
+        </article>
+        <article class="slide" aria-roledescription="slide" aria-label="5 de 5: Dubai e Emirados Árabes">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1000&auto=format&fit=crop&q=75" alt="Skyline futurista de Dubai" loading="lazy" decoding="async">
+          <div class="slide-caption"><h3>Dubai & Emirados</h3><span>Luxo e arquitetura futurista</span></div>
+        </article>
+      </div>
+    </div>
+
+    <div class="slider-controls">
+      <button class="slider-btn" id="prevSlide" aria-label="Slide anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="slider-dots" id="sliderDots" role="tablist" aria-label="Selecionar slide"></div>
+      <button class="slider-btn" id="nextSlide" aria-label="Próximo slide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div class="descubra-cta">
+      <a href="#destinos" class="btn btn-primary">Saiba mais</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIA (DIAMOND) ============ -->
+<section class="galeria" aria-labelledby="galeria-title">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Galeria</span>
+      <h2 id="galeria-title">Viaje em grupo pelo Brasil e pelo mundo</h2>
+      <p>Faça novos amigos e viaje com mais segurança em nossas excursões.</p>
+    </div>
+
+    <div class="galeria-wrap fade-in">
+      <div class="diamond-area">
+      <div class="diamond-grid" id="diamondGrid" role="list" aria-label="Galeria de fotos das excursões">
+        <button class="diamond" role="listitem" data-title="Pantanal" data-caption="Aventura, fauna e paisagens únicas no coração da América do Sul." aria-label="Abrir foto: Pantanal">
+          <img src="https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=600&auto=format&fit=crop&q=70" alt="Pantanal brasileiro" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Patagônia" data-caption="Geleiras, lagos e montanhas ao sul do continente." aria-label="Abrir foto: Patagônia">
+          <img src="https://images.unsplash.com/photo-1531065208531-4036c0dba3ca?w=600&auto=format&fit=crop&q=70" alt="Patagônia com montanhas nevadas" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Cataratas do Iguaçu" data-caption="Uma das sete maravilhas naturais do mundo." aria-label="Abrir foto: Cataratas do Iguaçu">
+          <img src="https://images.unsplash.com/photo-1564594985645-4427056e22e2?w=600&auto=format&fit=crop&q=70" alt="Cataratas do Iguaçu" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Caribe" data-caption="Águas cristalinas e mergulho em recifes coloridos." aria-label="Abrir foto: Caribe">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=70" alt="Praia caribenha" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Mergulho" data-caption="Explore a vida marinha em destinos exclusivos." aria-label="Abrir foto: Mergulho">
+          <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=600&auto=format&fit=crop&q=70" alt="Mergulho em mar de águas azuis" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Cidades Históricas" data-caption="Casarões coloniais e ruas que contam séculos de história." aria-label="Abrir foto: Cidades Históricas">
+          <img src="https://images.unsplash.com/photo-1583309217394-d178a4d3df02?w=600&auto=format&fit=crop&q=70" alt="Cidade histórica com igreja colonial" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Chapada Diamantina" data-caption="Cachoeiras, cavernas e trilhas em meio à natureza." aria-label="Abrir foto: Chapada Diamantina">
+          <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cddc85?w=600&auto=format&fit=crop&q=70" alt="Igreja em meio à serra" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Pôr do Sol" data-caption="Os melhores cenários para encerrar o dia." aria-label="Abrir foto: Pôr do Sol">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&auto=format&fit=crop&q=70" alt="Pôr do sol em paisagem natural" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Cultura Local" data-caption="Experiências autênticas com comunidades de cada destino." aria-label="Abrir foto: Cultura Local">
+          <img src="https://images.unsplash.com/photo-1604537529428-15bcbeecfe4d?w=600&auto=format&fit=crop&q=70" alt="Mulher em vestimenta cultural típica" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Aventuras em Grupo" data-caption="Compartilhe momentos com novos amigos viajantes." aria-label="Abrir foto: Aventuras em Grupo">
+          <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&auto=format&fit=crop&q=70" alt="Grupo de amigos viajando juntos" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Esportes na Água" data-caption="Caiaque, stand-up e muita adrenalina pelas águas mais lindas." aria-label="Abrir foto: Esportes na Água">
+          <img src="https://images.unsplash.com/photo-1502933691298-84fc14542831?w=600&auto=format&fit=crop&q=70" alt="Caiaque em rio cristalino" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Vistas Panorâmicas" data-caption="Mirantes e altitudes que tiram o fôlego." aria-label="Abrir foto: Vistas Panorâmicas">
+          <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&auto=format&fit=crop&q=70" alt="Viajante observando paisagem panorâmica" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Igrejas Centenárias" data-caption="Arquitetura sacra que atravessou séculos." aria-label="Abrir foto: Igrejas Centenárias">
+          <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=600&auto=format&fit=crop&q=70" alt="Igreja colonial branca" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Trilhas e Caminhadas" data-caption="Roteiros guiados em meio à natureza preservada." aria-label="Abrir foto: Trilhas e Caminhadas">
+          <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&auto=format&fit=crop&q=70" alt="Caminhada em trilha cercada de natureza" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Praias Paradisíacas" data-caption="Areia branca e mar morno em destinos selecionados." aria-label="Abrir foto: Praias Paradisíacas">
+          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&auto=format&fit=crop&q=70" alt="Praia paradisíaca com coqueiros" loading="lazy" decoding="async">
+        </button>
+        <button class="diamond" role="listitem" data-title="Encontros e Amizades" data-caption="O melhor da viagem é quem vai com você." aria-label="Abrir foto: Encontros e Amizades">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&auto=format&fit=crop&q=70" alt="Pessoas se divertindo durante viagem" loading="lazy" decoding="async">
+        </button>
+      </div>
+      </div>
+
+      <div class="galeria-plane" aria-hidden="true">
+        <svg viewBox="0 0 200 160" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M195 70c-2-4-7-5-11-3l-40 14-50-44c-2-2-5-2-7-1l-10 5c-3 1-4 5-2 7l30 38-30 10-15-9c-2-1-5-1-7 0l-8 4c-3 1-4 5-2 7l15 16c1 1 3 2 5 2l85-12 40-14c4-2 6-7 4-11z"/>
+          <path opacity="0.25" d="M20 130c30 8 110 4 165-20-50 30-135 38-165 20z"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="galeria-cta">
+      <a href="#contato" class="btn btn-primary">Conheça nossas excursões</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEPOIMENTOS ============ -->
+<section class="depoimentos" id="depoimentos" aria-labelledby="depo-title">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Depoimentos</span>
+      <h2 id="depo-title">O que dizem nossos viajantes</h2>
+    </div>
+    <div class="depo-grid">
+      <article class="depo fade-in">
+        <blockquote>"Foi a melhor viagem da minha vida. A Viva Turismo cuidou de tudo, e só precisei aproveitar. Recomendo de olhos fechados!"</blockquote>
+        <footer><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&auto=format&fit=crop&q=70" alt="Foto de Ana Carolina" loading="lazy"><span class="depo-info"><strong>Ana Carolina</strong>viagem a Cancún</span></footer>
+      </article>
+      <article class="depo fade-in">
+        <blockquote>"Atendimento impecável do começo ao fim. Tirei dúvidas a qualquer hora e fui surpreendida com mimos no hotel."</blockquote>
+        <footer><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&h=120&auto=format&fit=crop&q=70" alt="Foto de Roberto" loading="lazy"><span class="depo-info"><strong>Roberto e Família</strong>lua de mel em Maldivas</span></footer>
+      </article>
+      <article class="depo fade-in">
+        <blockquote>"Roteiro pela Europa perfeitamente planejado. Cada detalhe pensado com carinho. Já estou planejando a próxima!"</blockquote>
+        <footer><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&auto=format&fit=crop&q=70" alt="Foto de Juliana M." loading="lazy"><span class="depo-info"><strong>Juliana M.</strong>viagem à Europa</span></footer>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOG ============ -->
+<section class="blog" id="blog" aria-labelledby="blog-title">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Blog</span>
+      <h2 id="blog-title">Inspirações e Dicas de Viagem</h2>
+      <p>Conteúdo para te inspirar e preparar para a próxima aventura.</p>
+    </div>
+    <div class="posts">
+<a href="#" class="post fade-in">
+        <div class="post-thumb">
+          <span class="post-tag">Inspiração</span>
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&auto=format&fit=crop&q=70" alt="Paisagem montanhosa ao amanhecer" loading="lazy" decoding="async">
+        </div>
+        <div class="post-body">
+          <h4>10 destinos imperdíveis para 2026</h4>
+          <span class="post-meta">5 min de leitura</span>
+        </div>
+      </a>
+      <a href="#" class="post fade-in">
+        <div class="post-thumb">
+          <span class="post-tag">Dica</span>
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&auto=format&fit=crop&q=70" alt="Avião sobrevoando nuvens ao entardecer" loading="lazy" decoding="async">
+        </div>
+        <div class="post-body">
+          <h4>Como economizar nas passagens internacionais</h4>
+          <span class="post-meta">7 min de leitura</span>
+        </div>
+      </a>
+      <a href="#" class="post fade-in">
+        <div class="post-thumb">
+          <span class="post-tag">Guia</span>
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&auto=format&fit=crop&q=70" alt="Mala de viagem aberta sobre cama" loading="lazy" decoding="async">
+        </div>
+        <div class="post-body">
+          <h4>O que levar na mala para uma viagem ao Caribe</h4>
+          <span class="post-meta">6 min de leitura</span>
+        </div>
+      </a>
+      <a href="#" class="post fade-in">
+        <div class="post-thumb">
+          <span class="post-tag">Documentos</span>
+          <img src="https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?w=600&auto=format&fit=crop&q=70" alt="Passaporte e mapa sobre mesa" loading="lazy" decoding="async">
+        </div>
+        <div class="post-body">
+          <h4>Guia completo: documentos para viajar para a Europa</h4>
+          <span class="post-meta">10 min de leitura</span>
+        </div>
+      </a>
+    </div>
+    <div class="blog-cta">
+      <a href="#" class="btn btn-secondary">Ver todos os posts</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter" aria-labelledby="news-title">
+  <div class="container">
+    <div class="news-inner fade-in">
+      <h2 id="news-title">Receba nossas ofertas em primeira mão</h2>
+      <p>Preencha o formulário e fale com um consultor pelo WhatsApp para receber promoções, novos destinos e dicas exclusivas.</p>
+      <form class="news-form" id="waForm" novalidate>
+        <div>
+          <label for="wa-nome">Nome completo</label>
+          <input class="input" id="wa-nome" name="nome" type="text" placeholder="Seu nome" required aria-required="true">
+        </div>
+        <div>
+          <label for="wa-tel">Telefone / WhatsApp</label>
+          <input class="input" id="wa-tel" name="telefone" type="tel" placeholder="(XX) 9XXXX-XXXX" required aria-required="true">
+        </div>
+        <div>
+          <label for="wa-destino">Destino de interesse</label>
+          <select class="select" id="wa-destino" name="destino" required aria-required="true">
+            <option value="">Selecione um destino</option>
+            <option>Nordeste Brasileiro</option>
+            <option>Europa Clássica</option>
+            <option>Caribe</option>
+            <option>Disney & Orlando</option>
+            <option>Argentina e Chile</option>
+            <option>Dubai e Emirados Árabes</option>
+            <option>Outro / Personalizado</option>
+          </select>
+        </div>
+        <div>
+          <label for="wa-data">Data prevista da viagem</label>
+          <input class="input" id="wa-data" name="data" type="month" required aria-required="true">
+        </div>
+        <div>
+          <label for="wa-pessoas">Número de pessoas</label>
+          <select class="select" id="wa-pessoas" name="pessoas" required aria-required="true">
+            <option value="">Quantos viajantes?</option>
+            <option>1 pessoa</option>
+            <option>2 pessoas</option>
+            <option>3 pessoas</option>
+            <option>4 pessoas</option>
+            <option>5 ou mais</option>
+          </select>
+        </div>
+        <div>
+          <label for="wa-orcamento">Orçamento aproximado</label>
+          <select class="select" id="wa-orcamento" name="orcamento">
+            <option value="">Selecione (opcional)</option>
+            <option>Até R$ 3.000</option>
+            <option>R$ 3.000 – R$ 6.000</option>
+            <option>R$ 6.000 – R$ 10.000</option>
+            <option>Acima de R$ 10.000</option>
+            <option>Ainda não defini</option>
+          </select>
+        </div>
+        <div class="field-full">
+          <label for="wa-msg">Mensagem (opcional)</label>
+          <textarea class="textarea" id="wa-msg" name="mensagem" placeholder="Conte mais sobre a viagem que você sonha..."></textarea>
+        </div>
+        <div class="field-full">
+          <button class="btn btn-primary" type="submit">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Enviar pelo WhatsApp
+          </button>
+        </div>
+        <p class="form-note">Ao enviar, você será redirecionado para o WhatsApp com sua mensagem já preenchida.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="cta-final" id="contato" aria-labelledby="cta-title">
+  <div class="container">
+    <div class="fade-in">
+      <span class="eyebrow" style="color:var(--c-yellow)">Vamos viajar?</span>
+      <h2 id="cta-title">Pronto para a próxima aventura?</h2>
+      <p>Fale agora com um de nossos consultores e monte o roteiro perfeito para você. Sem compromisso, sem pressa — só boas ideias de viagem.</p>
+      <div class="cta-final-actions">
+        <a href="#" class="btn btn-primary">Falar no WhatsApp</a>
+        <a href="#" class="btn btn-secondary">Solicitar Orçamento</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <span class="logo">Viva<span style="color:var(--c-orange)">Turismo</span></span>
+        <p>A Viva Turismo é uma agência especializada em criar experiências de viagem personalizadas, com atendimento humano e parceiros de confiança.</p>
+        <div class="social" aria-label="Redes sociais">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="YouTube">YT</a>
+          <a href="#" aria-label="TikTok">TT</a>
+        </div>
+      </div>
+      <nav aria-label="Links rápidos">
+        <h4>Links rápidos</h4>
+        <ul>
+          <li><a href="#sobre">Sobre Nós</a></li>
+          <li><a href="#destinos">Destinos</a></li>
+          <li><a href="#pacotes">Pacotes</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>Contato</h4>
+        <ul class="footer-contact">
+          <li>📞 (XX) XXXX-XXXX</li>
+          <li>📱 WhatsApp: (XX) 9XXXX-XXXX</li>
+          <li>✉️ contato@vivaturismo.com.br</li>
+          <li>📍 Endereço da agência - Cidade/UF</li>
+          <li>🕐 Seg a Sex: 9h às 18h | Sáb: 9h às 13h</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Redes Sociais</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Viva Turismo. Todos os direitos reservados. | CNPJ: XX.XXX.XXX/0001-XX | <a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MODAL GALERIA ============ -->
+<div class="modal" id="galeriaModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <img class="modal-img" id="modalImg" src="" alt="">
+    <div class="modal-body">
+      <h3 id="modalTitle"></h3>
+      <p id="modalCaption"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FLOAT WHATSAPP ============ -->
+<a href="#" class="fab" aria-label="Fale conosco pelo WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+// Mobile menu
+const toggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+toggle.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+mobileNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Slider — stacked carousel
+(function(){
+  const slider = document.getElementById('slider');
+  if (!slider) return;
+  const slides = Array.from(slider.querySelectorAll('.slide'));
+  const dotsWrap = document.getElementById('sliderDots');
+  const prevBtn = document.getElementById('prevSlide');
+  const nextBtn = document.getElementById('nextSlide');
+  const total = slides.length;
+  let active = 0;
+  let timer = null;
+  const INTERVAL = 4500;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'dot' + (i === 0 ? ' active' : '');
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'Ir para slide ' + (i + 1));
+    b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', () => { go(i); restart(); });
+    dotsWrap.appendChild(b);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function render(){
+    slides.forEach((s, i) => {
+      let diff = i - active;
+      if (diff > total/2) diff -= total;
+      if (diff < -total/2) diff += total;
+      const pos = Math.abs(diff) > 2 ? 'hidden' : String(diff);
+      s.setAttribute('data-pos', pos);
+      s.setAttribute('aria-hidden', diff === 0 ? 'false' : 'true');
+    });
+    dots.forEach((d, i) => {
+      const on = i === active;
+      d.classList.toggle('active', on);
+      d.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+  function go(i){ active = (i + total) % total; render(); }
+  function next(){ go(active + 1); }
+  function prev(){ go(active - 1); }
+  function start(){ if (reduceMotion) return; timer = setInterval(next, INTERVAL); }
+  function stop(){ if (timer) clearInterval(timer); timer = null; }
+  function restart(){ stop(); start(); }
+
+  prevBtn.addEventListener('click', () => { prev(); restart(); });
+  nextBtn.addEventListener('click', () => { next(); restart(); });
+
+  slides.forEach((s, i) => s.addEventListener('click', () => {
+    if (i === active) return;
+    go(i); restart();
+  }));
+
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', start);
+  slider.addEventListener('focusin', stop);
+  slider.addEventListener('focusout', start);
+
+  // Keyboard
+  slider.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { prev(); restart(); }
+    else if (e.key === 'ArrowRight') { next(); restart(); }
+  });
+
+  // Touch swipe
+  let touchX = null;
+  slider.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; stop(); }, {passive:true});
+  slider.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+    touchX = null; start();
+  });
+
+  render();
+  start();
+})();
+
+// Gallery modal
+(function(){
+  const grid = document.getElementById('diamondGrid');
+  const modal = document.getElementById('galeriaModal');
+  if (!grid || !modal) return;
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalCaption = document.getElementById('modalCaption');
+  const closeBtn = document.getElementById('modalClose');
+  let lastFocus = null;
+
+  function open(tile){
+    const img = tile.querySelector('img');
+    const src = img.getAttribute('src').replace(/w=\d+/, 'w=1200');
+    modalImg.src = src;
+    modalImg.alt = img.alt;
+    modalTitle.textContent = tile.dataset.title || '';
+    modalCaption.textContent = tile.dataset.caption || '';
+    lastFocus = document.activeElement;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    closeBtn.focus();
+  }
+  function close(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (lastFocus) lastFocus.focus();
+  }
+  grid.querySelectorAll('.diamond').forEach(t => t.addEventListener('click', () => open(t)));
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) close();
+  });
+})();
+
+// WhatsApp form
+const WA_NUMBER = '5500000000000'; // substitua pelo número da agência: 55 + DDD + número
+const waForm = document.getElementById('waForm');
+if (waForm) {
+  waForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!waForm.checkValidity()) { waForm.reportValidity(); return; }
+    const f = waForm;
+    const nome = f.nome.value.trim();
+    const tel = f.telefone.value.trim();
+    const destino = f.destino.value;
+    const data = f.data.value;
+    const pessoas = f.pessoas.value;
+    const orcamento = f.orcamento.value;
+    const mensagem = f.mensagem.value.trim();
+    const dataFmt = data ? new Date(data + '-01').toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) : '';
+    const linhas = [
+      'Olá! Quero solicitar um orçamento de viagem.',
+      '',
+      '*Nome:* ' + nome,
+      '*Telefone:* ' + tel,
+      '*Destino:* ' + destino,
+      '*Data prevista:* ' + dataFmt,
+      '*Pessoas:* ' + pessoas,
+    ];
+    if (orcamento) linhas.push('*Orçamento:* ' + orcamento);
+    if (mensagem) { linhas.push('', '*Mensagem:*', mensagem); }
+    const texto = encodeURIComponent(linhas.join('\n'));
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + texto, '_blank', 'noopener');
+  });
+}
+</script>
+
+</body>
+</html>
